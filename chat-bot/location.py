@@ -3,22 +3,23 @@ from geopy.geocoders import Nominatim
 import geopy.distance
 
 class Location(object):
-
-	def getLocation(place = None):
-		if place is None or place == 'here' or place == 'me':
+	def getLocation(self, place = None):
+		if place is None:
 			client = IpregistryClient("fs9pbuwmnx5r2g")  
 			ipInfo = client.lookup()
 			#print(ipInfo)
 			return(ipInfo.location.get("latitude"), ipInfo.location.get("longitude"))
-
 		else:
 			geolocator = Nominatim(user_agent="chatbot")
 			location = geolocator.geocode(place)
 			return (location.latitude, location.longitude)
 
-	def distanceByLatLong(entities):
-		places = entities['wit$location:location']
-		place1Coords = Location.getLocation(places[0]['value'])
-		place2Coords = Location.getLocation(places[1]['value'])
+	def distanceByLatLong(self, lat1, long1, lat2 = None, long2 = None):
+		if lat2 is None:
+			coord1 = (lat1, long1)
+			coord2 = self.getLocation()
+		else:
+			coord1 = (lat1, long1)
+			coord2 = (lat2, long2)
 
-		return geopy.distance.distance(place1Coords, place2Coords).km
+		return geopy.distance.distance(coord1, coord2).km
