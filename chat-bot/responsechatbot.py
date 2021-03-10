@@ -3,29 +3,31 @@ from witapi import WitAPI as wa
 from location import Location as lc
 from responseformat import ResponseFormat as rf
 from timechatbot import TimeChatbot as tc
+from geoInfo import GeoInfo as gi
 
 
 witIntents = {
 	'get_distance' : lc.distanceByLatLong,
-	#'get_time_difference' : undefined,	
+	'get_time_difference' : tc.getTimeDifference,	
 	'get_time_zone' : tc.getTimezone,
-	#'point_of_interest' : undefined,
-	#'wit$check_weather_condition' : undefined,
-	#'wit$get_temperature' : undefined,
+	'point_of_interest' : gi.get_point_of_interest,
+	'wit$check_weather_condition' : gi.get_weather,
+	'wit$get_temperature' : gi.get_temperature,
 	'wit$get_time' : tc.getLocalTime
 }
 
 witIntentResponseFormats = {
 	'get_distance' : rf.getDistanceFormat,
-	#'get_time_difference' : undefined,
+	'get_time_difference' : rf.getTimeDifferenceFormat,
 	'get_time_zone' : rf.getTimezoneFormat,
-	#'point_of_interest' : undefined,
-	#'wit$check_weather_condition' : undefined,
-	#'wit$get_temperature' : undefined,
+	'point_of_interest' : rf.getPointOfInterestFormat,
+	'wit$check_weather_condition' : rf.getWeatherFormat,
+	'wit$get_temperature' : rf.getTemperatureFormat,
 	'wit$get_time' : rf.getLocalTimeFormat
 }
 
 class ChatbotResponse(object):
+
 	def getResponse(question):
 		jsonData = wa.sendRequest(question)
 		print(jsonData)
@@ -47,4 +49,4 @@ class ChatbotResponse(object):
 		return response
 
 
-print(ChatbotResponse.getResponse("What time is in in Vancouver?"))
+print(ChatbotResponse.getResponse("What are some POIs in Kelowna?"))

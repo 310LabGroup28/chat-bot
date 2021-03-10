@@ -23,3 +23,33 @@ class ResponseFormat(object):
 			response += "The time in " + location['value'] + " is " + str(time[i]) + ".\n"
 			i = i + 1
 		return response
+
+	def getTimeDifferenceFormat(time, entities):
+		entities = entities['wit$location:location']
+		if len(entities) == 1:
+			return "The difference in time from here to " + entities[0]['value'] + " is " + str(time) + "."
+		else:
+			return "The difference in time between " + entities[0]['value'] + " and " + entities[1]['value'] + " is " + str(time) + "."
+
+	def getTemperatureFormat(temps, entities):
+		entities = entities['wit$location:location']
+		response = ""
+		i = 0
+		for location in entities:
+			response += "The temperature in " + location['value'] + " is " + str(temps[i]['temp']) + " degrees celcius.\n"
+			i = i + 1
+		return response
+
+	def getWeatherFormat(weather, entities):
+		entities = entities['wit$location:location']
+		return "The weather in " + entities[0]['value'] + " is " + str(weather) + "."
+
+	def getPointOfInterestFormat(POI, entities):
+		entities = entities['wit$location:location']
+		response = "The POIs in " + entities[0]['value'] + " are "
+		for poi in POI:
+			stringsplitpoint = poi.find(', ') + 2
+			response += poi[stringsplitpoint:poi.find(',', stringsplitpoint+1)] + ", "
+		response = response[:-2]
+		response += "."
+		return response

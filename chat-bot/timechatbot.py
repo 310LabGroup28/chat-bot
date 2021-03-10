@@ -5,27 +5,44 @@ from lib import pytz
 
 class TimeChatbot(object):
 
-	def getTimezone(entities):
-		entities = entities['wit$location:location']
-		timezones = []
-		for location in entities:
-			coords = lc.getLocation(location['value'])
+	def getTimezone(entities, place = None):
+		if place is None:
+			timezones = []
+			entities = entities['wit$location:location']
+			for location in entities:
+				coords = lc.getLocation(location['value'])
+				latitude = coords[0]
+				longitude = coords[1]
+				tf = TimezoneFinder()
+				timezones.append(tf.timezone_at(lng=longitude, lat=latitude))
+			return timezones
+		else:
+			coords = lc.getLocation(place)
 			latitude = coords[0]
 			longitude = coords[1]
 			tf = TimezoneFinder()
-			timezones.append(tf.timezone_at(lng=longitude, lat=latitude))
+			return tf.timezone_at(lng=longitude, lat=latitude)
 
-		return timezones
-
-	def getLocalTime(entities):
+	def getLocalTime(entities, place = None):
 		locationEntities = entities['wit$location:location']
-		dateTime = [] 
-		if len(locationEntities) == 0:
-			dateTime.append(datetime.now())
+		if place is None:
+			dateTime = [] 
+			if len(locationEntities) == 0:
+				dateTime.append(datetime.now())
+			else:
+				timezoneList = TimeChatbot.getTimezone(entities)
+				for timezone in timezoneList:
+					tz = pytz.timezone(timezone)
+					dateTime.append(datetime.now(tz))
+			return dateTime
 		else:
-			timezoneList = TimeChatbot.getTimezone(entities)
-			for timezone in timezoneList:
-				tz = pytz.timezone(timezone)
-				dateTime.append(datetime.now(tz))
-	
-		return dateTime
+			timezone = TimeChatbot.getTimezone(entities, place)
+			tz = pytz.timezone(timezone)
+			return datetime.now(tz)
+
+	def getTimeDifference(entities):
+		times = TimeChatbot.getLocalTime(entities)
+		if len(times) == 1:
+			times.append(TimeChatbot.getLocalTime(entities, "here"))
+
+		return times[0] - times[1]

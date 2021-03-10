@@ -5,13 +5,14 @@ from pyowm.utils import config
 from pyowm.utils import timestamps
 import json 
 import requests
+from location import Location as lc
 
-  # you should go to this URL: https://home.openweathermap.org/api_keys
-  # to create your own key if you want to use this API
-  # more info about this API: https://openweathermap.org/api/one-call-api
-  api_key = "817d0ac612d439a9fe94c38f889fab28"
-  owm = OWM(api_key)
-  mgr = owm.weather_manager()
+# you should go to this URL: https://home.openweathermap.org/api_keys
+# to create your own key if you want to use this API
+# more info about this API: https://openweathermap.org/api/one-call-api
+api_key = "817d0ac612d439a9fe94c38f889fab28"
+owm = OWM(api_key)
+mgr = owm.weather_manager()
 
 class GeoInfo(object):
 
@@ -22,15 +23,25 @@ class GeoInfo(object):
     self.observation = mgr.weather_at_coords(self.lat, self.long)
     self.w = self.observation.weather
   
-  def get_temperature(self, lat=None, long=None, wtype='celsius'):
-    if lat is not None and long is not None:
-      self.lat = lat
-      self.long = long
-    self.observation = mgr.weather_at_coords(self.lat, self.long)
-    self.w = self.observation.weather
+  def get_temperature(entities, lat=None, long=None, wtype='celsius'):
+    locationEntities = entities['wit$location:location']
+    temps = []
+    if len(locationEntities) == 0:
+      coords = lc.getLocation()
+      lat = coords[0]
+      long = coords[1]
+      temps.append(mgr.weather_at_coords(lat, long).weather.temperature(wtype))
+    else:
+      for location in locationEntities:
+        coords = lc.getLocation(location['value'])
+        lat = coords[0]
+        long = coords[1]
+        temps.append(mgr.weather_at_coords(lat, long).weather.temperature(wtype))
+    #observation = mgr.weather_at_coords(lat, long)
+    #w = observation.weather
     # print(w.temperature('celsius'))
     # w.to_dict()
-    return self.w.temperature(wtype)
+    return temps
   '''
   def get_temperature(self, name='Toronto'):
     observation = mgr.weather_at_place(name)
@@ -39,14 +50,30 @@ class GeoInfo(object):
     return w.to_dict()
   '''
 
-  def get_weather(self):
-    return self.w.detailed_status
+  def get_weather(entities, lat = 0, long = 0):
+    locationEntities = entities['wit$location:location']
+    if len(locationEntities) == 0:
+      coords = lc.getLocation()
+      lat = coords[0]
+      long = coords[1]
+    else:
+      coords = lc.getLocation(locationEntities[0]['value'])
+      lat = coords[0]
+      long = coords[1]
+    return mgr.weather_at_coords(lat, long).weather.detailed_status
   
   # limit, how many POIs you want to retrieve
-  def get_point_of_interest(self, limit=5):
+  def get_point_of_interest(entities, limit=5, latitude = 0, longitude = 0):
     URL = "https://discover.search.hereapi.com/v1/discover"
-    latitude = self.lat
-    longitude = self.long
+    locationEntities = entities['wit$location:location']
+    if len(locationEntities) == 0:
+      coords = lc.getLocation()
+      latitude = coords[0]
+      longitude = coords[1]
+    else:
+      coords = lc.getLocation(locationEntities[0]['value'])
+      latitude = coords[0]
+      longitude = coords[1]
     # get your key from developer.here.com
     poi_key = 'IIlHrKDojjhW90OB3KCEp6Xu0l8FX13NAdgFxMx4HbM' 
     query = 'tourist attractions'
@@ -67,19 +94,3 @@ class GeoInfo(object):
       att = 'distance: ' + str(it['distance']) + ', ' + it['address']['label']
       attractions.append(att)
     return attractions
-
-# test
-geoInfo = GeoInfo(22.2793278, 114.1628131)
-# 43.6532, -79.3832 - Toronto / the default lat and long
-# 51.5073219, -0.1276474 - London
-# 40.7127281, -74.0060152 - New York
-# 22.2793278, 114.1628131 - Hong Kong
-# 39.906217, 116.3912757 - Beijing
-
-temp = geoInfo.get_temperature()
-wth = geoInfo.get_weather()
-poi = geoInfo.get_point_of_interest(3)
-
-print('temperature: ', temp)
-print('weather: ', wth)
-print('POI: ', poi)
