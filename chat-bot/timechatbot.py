@@ -1,7 +1,7 @@
-from timezonefinder import TimezoneFinder
+from lib.timezonefinder import TimezoneFinder
 from datetime import datetime
 from location import Location as lc
-import pytz
+from lib import pytz
 
 class TimeChatbot(object):
 

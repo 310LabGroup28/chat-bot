@@ -1,7 +1,7 @@
 from datetime import datetime
 from datetime import timedelta
 import json 
-import requests
+from lib import requests
 
 URL = "https://api.wit.ai/message"
 API_KEY = "6LLX376UX4FWFSX5KVNLSRPCXSECLGXE"

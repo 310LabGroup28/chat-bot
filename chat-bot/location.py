@@ -1,12 +1,13 @@
-from ipregistry import IpregistryClient
-from geopy.geocoders import Nominatim
-import geopy.distance
+from lib.geopy.geocoders import Nominatim
+from lib.geopy import distance
+from lib import ipregistry
+
 
 class Location(object):
 
 	def getLocation(place = None):
 		if place is None or place == 'here' or place == 'me':
-			client = IpregistryClient("fs9pbuwmnx5r2g")  
+			client = ipregistry.IpregistryClient("fs9pbuwmnx5r2g", cache=ipregistry.DefaultCache(maxsize=2048, ttl=600))  
 			ipInfo = client.lookup()
 			#print(ipInfo)
 			return(ipInfo.location.get("latitude"), ipInfo.location.get("longitude"))
@@ -19,6 +20,9 @@ class Location(object):
 	def distanceByLatLong(entities):
 		places = entities['wit$location:location']
 		place1Coords = Location.getLocation(places[0]['value'])
-		place2Coords = Location.getLocation(places[1]['value'])
+		if len(places) == 1:
+			place2Coords = Location.getLocation()
+		else:
+			place2Coords = Location.getLocation(places[1]['value'])
 
-		return geopy.distance.distance(place1Coords, place2Coords).km
+		return distance.distance(place1Coords, place2Coords).km
