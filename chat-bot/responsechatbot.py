@@ -11,7 +11,7 @@ witIntents = {
 	'get_time_difference' : tc.getTimeDifference,	
 	'get_time_zone' : tc.getTimezone,
 	'point_of_interest' : gi.get_point_of_interest,
-	'wit$check_weather_condition' : gi.get_weather,
+	'forecast' : gi.get_weather,
 	'wit$get_temperature' : gi.get_temperature,
 	'wit$get_time' : tc.getLocalTime
 }
@@ -21,7 +21,7 @@ witIntentResponseFormats = {
 	'get_time_difference' : rf.getTimeDifferenceFormat,
 	'get_time_zone' : rf.getTimezoneFormat,
 	'point_of_interest' : rf.getPointOfInterestFormat,
-	'wit$check_weather_condition' : rf.getWeatherFormat,
+	'forecast' : rf.getWeatherFormat,
 	'wit$get_temperature' : rf.getTemperatureFormat,
 	'wit$get_time' : rf.getLocalTimeFormat
 }
@@ -49,4 +49,4 @@ class ChatbotResponse(object):
 		return response
 
 
-print(ChatbotResponse.getResponse("What are some POIs in Kelowna?"))
+print(ChatbotResponse.getResponse("What is the weather forecast in Kelowna?"))

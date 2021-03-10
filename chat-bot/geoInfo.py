@@ -1,8 +1,8 @@
 #you should install the package firstly
 #!pip install pyowm 
-from pyowm import OWM
-from pyowm.utils import config
-from pyowm.utils import timestamps
+from lib.pyowm import OWM
+from lib.pyowm.utils import config
+from lib.pyowm.utils import timestamps
 import json 
 import requests
 from location import Location as lc
