@@ -16,9 +16,9 @@ class Location(object):
 			location = geolocator.geocode(place)
 			return (location.latitude, location.longitude)
 
-	def distanceByLatLong(self, entities):
+	def distanceByLatLong(entities):
 		places = entities['wit$location:location']
-		place1Coords = self.getLocation(places[0]['value'])
-		place2Coords = self.getLocation(places[1]['value'])
+		place1Coords = Location.getLocation(places[0]['value'])
+		place2Coords = Location.getLocation(places[1]['value'])
 
 		return geopy.distance.distance(place1Coords, place2Coords).km

@@ -5,7 +5,7 @@ import pytz
 
 class TimeChatbot(object):
 
-	def getTimezone(self, entities):
+	def getTimezone(entities):
 		entities = entities['wit$location:location']
 		timezones = []
 		for location in entities:
@@ -17,13 +17,13 @@ class TimeChatbot(object):
 
 		return timezones
 
-	def getLocalTime(self, entities):
+	def getLocalTime(entities):
 		locationEntities = entities['wit$location:location']
 		dateTime = [] 
 		if len(locationEntities) == 0:
 			dateTime.append(datetime.now())
 		else:
-			timezoneList = self.getTimezone(self, entities)
+			timezoneList = TimeChatbot.getTimezone(entities)
 			for timezone in timezoneList:
 				tz = pytz.timezone(timezone)
 				dateTime.append(datetime.now(tz))

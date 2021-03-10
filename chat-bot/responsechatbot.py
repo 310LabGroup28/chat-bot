@@ -4,11 +4,6 @@ from location import Location as lc
 from responseformat import ResponseFormat as rf
 from timechatbot import TimeChatbot as tc
 
-callObjectByIntent = {
-	'get_distance' : lc,
-	'get_time_zone' : tc,
-	'wit$get_time' : tc
-}
 witIntents = {
 	'get_distance' : lc.distanceByLatLong,
 	'get_time_zone' : tc.getTimezone,
@@ -36,8 +31,7 @@ class ChatbotResponse(object):
 		for intent in intents:
 			#print(intent)
 			intentName = intent['name']
-			callObject = callObjectByIntent[intentName]
-			response += witIntentResponseFormats[intentName](witIntents[intentName](callObject, entities), entities)
+			response += witIntentResponseFormats[intentName](witIntents[intentName](entities), entities)
 
 		return response
 
