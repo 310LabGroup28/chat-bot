@@ -1,6 +1,6 @@
-from lib.geopy.geocoders import Nominatim
-from lib.geopy import distance
-from lib import ipregistry
+from geopy.geocoders import Nominatim
+from geopy import distance
+import ipregistry
 
 
 class Location(object):

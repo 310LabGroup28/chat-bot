@@ -47,6 +47,3 @@ class ChatbotResponse(object):
 				response += witIntentResponseFormats[intentName](witIntents[intentName](entities), entities)
 
 		return response
-
-
-print(ChatbotResponse.getResponse("What is the weather forecast in Kelowna?"))
