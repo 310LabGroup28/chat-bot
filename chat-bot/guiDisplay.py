@@ -9,14 +9,13 @@ def show_entry_fields():
 
 
 def insertContent():
-    #record = record + e1.get()
-    # "how far is kelowna from vancouver?"
     reply = ""
+
     try:
-    	reply = cr.getResponse(e1.get())
+        reply = cr.getResponse(e1.get())
     except:
-    	reply = "I'm sorry, I didn't quite understand that.\nTry asking for help to see the scope of my functionality, or try asking another question.\n"
-    	
+        reply = "I'm sorry, I didn't quite understand that.\nTry asking for help to see the scope of my functionality, or try asking another question.\n"
+
     print(reply)
     T.insert(tk.END, e1.get() + '\n', "odd")
     T.insert(tk.END, reply + '\n', "even")
