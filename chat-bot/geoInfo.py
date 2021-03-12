@@ -24,10 +24,11 @@ class GeoInfo(object):
     self.w = self.observation.weather
   
   def get_temperature(entities, lat=None, long=None, wtype='celsius'):
-    locationEntities = entities['wit$location:location']
-    timeEntities = entities['wit$datetime:datetime']
+    if len(entities) != 0:
+      locationEntities = entities['wit$location:location']
+      #timeEntities = entities['wit$datetime:datetime']
     temps = []
-    if len(locationEntities) == 0:
+    if len(entities) == 0:
       coords = lc.getLocation()
       lat = coords[0]
       long = coords[1]
