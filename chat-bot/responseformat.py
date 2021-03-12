@@ -13,7 +13,7 @@ class ResponseFormat(object):
 	def getTimezoneFormat(timezone, entities):
 		entities = entities['wit$location:location']
 		place = entities[0]['value']
-		return "The time zone at " + place + " is " + timezone + "."
+		return "The time zone at " + place + " is " + str(timezone[0]) + "."
 
 	def getLocalTimeFormat(time, entities):
 		entities = entities['wit$location:location']
