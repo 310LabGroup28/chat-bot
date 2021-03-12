@@ -33,11 +33,14 @@ class TimeChatbot(object):
 				timezoneList = TimeChatbot.getTimezone(entities)
 				for timezone in timezoneList:
 					tz = pytz.timezone(timezone)
+					print(tz)
+					print(datetime.now(tz))
 					dateTime.append(datetime.now(tz))
 			return dateTime
 		else:
 			timezone = TimeChatbot.getTimezone(entities, place)
 			tz = pytz.timezone(timezone)
+			print(tz)
 			return datetime.now(tz)
 
 	def getTimeDifference(entities):
@@ -46,3 +49,4 @@ class TimeChatbot(object):
 			times.append(TimeChatbot.getLocalTime(entities, "here"))
 
 		return times[0] - times[1]
+

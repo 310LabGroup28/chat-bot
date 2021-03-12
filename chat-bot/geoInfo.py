@@ -25,6 +25,7 @@ class GeoInfo(object):
   
   def get_temperature(entities, lat=None, long=None, wtype='celsius'):
     locationEntities = entities['wit$location:location']
+    timeEntities = entities['wit$datetime:datetime']
     temps = []
     if len(locationEntities) == 0:
       coords = lc.getLocation()
