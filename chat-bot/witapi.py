@@ -20,5 +20,4 @@ class WitAPI(object):
 		    print('error: ' + str(resp.status_code))
 		    return None
 		else:
-		    print('Success')
 		    return resp.json()

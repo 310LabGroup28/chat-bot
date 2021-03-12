@@ -30,15 +30,23 @@ class ChatbotResponse(object):
 
 	def getResponse(question):
 		jsonData = wa.sendRequest(question)
-		print(jsonData)
+		#print(jsonData)
 
 		response = ""
 
 		intents = jsonData['intents']
 		entities = jsonData['entities']
 		traits = jsonData['traits']
-			
-		if len(intents) == 0:
+
+		for trait in traits:
+			if trait == 'wit$greetings':
+				response += "Hello! I can help with things related to geographic data.\nTry asking me how far two places are from each other, or ask me about the weather somewhere.\nIf you want to know more about what I can do, try asking for help.\n"
+			if trait == 'help':
+				response += "I have a few things I can help you with.\nI can get the temperature at multiple locations, the weather forecast, and points of interest nearby.\nI can also tell you what the local time is for any location, and help calculate time differences between locations.\nLastly, I can measure distances between two locations in kilometers.\n"
+			if trait == 'wit$bye':
+				response += "Goodbye!"
+
+		if len(intents) == 0 and len(traits) == 0:
 			response = "I'm sorry, I didn't quite understand that. Try asking for help to see the scope of my functionality, or try asking another question."
 		else:
 			for intent in intents:
