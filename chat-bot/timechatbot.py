@@ -5,6 +5,9 @@ import pytz
 
 class TimeChatbot(object):
 
+	# takes in a list of entities or a place as a string
+	# if there is a place specified, it finds the timezone at that place
+	# otherwise, it finds the timezones for each location entity and returns an array of timezones
 	def getTimezone(entities, place = None):
 		if place is None:
 			timezones = []
@@ -23,6 +26,9 @@ class TimeChatbot(object):
 			tf = TimezoneFinder()
 			return tf.timezone_at(lng=longitude, lat=latitude)
 
+	# takes in a list of entities or a place as a string
+	# if there is a place specified, it finds the local time at that place
+	# otherwise, it finds the local time for each location entity and returns an array of datetimes
 	def getLocalTime(entities, place = None):
 		locationEntities = entities['wit$location:location']
 		if place is None:

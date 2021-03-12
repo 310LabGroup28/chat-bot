@@ -28,9 +28,10 @@ witIntentResponseFormats = {
 
 class ChatbotResponse(object):
 
+	# getResponse allows you to send in a question or statement as a string, and returns a string that is the response
+	# it does this by calling the appropriate function for the intent, using the dictionaries above
 	def getResponse(question):
 		jsonData = wa.sendRequest(question)
-		#print(jsonData)
 
 		response = "Chatbot: "
 
@@ -47,10 +48,10 @@ class ChatbotResponse(object):
 				response += "Goodbye!\n"
 
 		if len(intents) == 0 and len(traits) == 0:
-			response = "I'm sorry, I didn't quite understand that. Try asking for help to see the scope of my functionality, or try asking another question.\n"
+			response = "I'm sorry, I didn't quite understand that.\nTry asking for help to see the scope of my functionality, or try asking another question.\n"
 		else:
+			# for each intent, call their appropriate function, pass the data to the formatter, and append the string to the response
 			for intent in intents:
-				#print(intent)
 				intentName = intent['name']
 				response += witIntentResponseFormats[intentName](witIntents[intentName](entities), entities)
 
