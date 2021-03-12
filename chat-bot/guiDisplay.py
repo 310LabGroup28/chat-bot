@@ -1,5 +1,6 @@
 import sys
-sys.path.append(sys.path[0]+"\lib")
+sys.path.append(sys.path[0]+"\\lib")
+print(sys.path)
 import tkinter as tk
 from responsechatbot import ChatbotResponse as cr
 
