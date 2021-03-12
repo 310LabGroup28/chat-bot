@@ -7,10 +7,10 @@ class ResponseFormat(object):
 		entities = entities['wit$location:location']
 		place1 = entities[0]['value']
 		if len(entities) == 1:
-			return "The distance to " + place1 + " is " + round(str(distance), 2) + "km.\n"
+			return "The distance to " + place1 + " is " + str(round(distance, 2)) + "km.\n"
 		else:
 			place2 = entities[1]['value']
-			return "The distance between " + place1 + " and " + place2 + " is " + round(str(distance), 2) + "km.\n"
+			return "The distance between " + place1 + " and " + place2 + " is " + str(round(distance, 2)) + "km.\n"
 
 	def getTimezoneFormat(timezone, entities):
 		entities = entities['wit$location:location']
