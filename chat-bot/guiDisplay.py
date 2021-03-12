@@ -31,7 +31,7 @@ send = tk.Button(master, text='Send', command=insertContent)
 send.grid(row=3, column=0, sticky=tk.W, pady=5)
 
 
-record = ""
+record = "==========================================================Chat Log=========================================================="
 T = tk.Text(master, height=20, width=140)
 T.grid(row=5, column=0, sticky=tk.W, pady=4, padx=4)
 T.tag_configure("even", background="#ffffff")
