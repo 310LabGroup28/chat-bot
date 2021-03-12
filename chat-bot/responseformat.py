@@ -1,19 +1,21 @@
-
+# this class is responsible for formatting the data requested as a string that can be used as a response by the chat bot
+# each function here takes in the returned data of its corresponding data request function, as well as the full list of entities
+# it returns a string that the bot should respond with
 
 class ResponseFormat(object):
 	def getDistanceFormat(distance, entities):
 		entities = entities['wit$location:location']
 		place1 = entities[0]['value']
 		if len(entities) == 1:
-			return "The distance to " + place1 + " is " + str(distance) + "km."
+			return "The distance to " + place1 + " is " + round(str(distance), 2) + "km.\n"
 		else:
 			place2 = entities[1]['value']
-			return "The distance between " + place1 + " and " + place2 + " is " + str(distance) + "km."
+			return "The distance between " + place1 + " and " + place2 + " is " + round(str(distance), 2) + "km.\n"
 
 	def getTimezoneFormat(timezone, entities):
 		entities = entities['wit$location:location']
 		place = entities[0]['value']
-		return "The time zone at " + place + " is " + str(timezone[0]) + "."
+		return "The time zone at " + place + " is " + str(timezone[0]) + ".\n"
 
 	def getLocalTimeFormat(time, entities):
 		entities = entities['wit$location:location']
@@ -27,9 +29,9 @@ class ResponseFormat(object):
 	def getTimeDifferenceFormat(time, entities):
 		entities = entities['wit$location:location']
 		if len(entities) == 1:
-			return "The difference in time from here to " + entities[0]['value'] + " is " + str(time) + "."
+			return "The difference in time from here to " + entities[0]['value'] + " is " + str(time) + ".\n"
 		else:
-			return "The difference in time between " + entities[0]['value'] + " and " + entities[1]['value'] + " is " + str(time) + "."
+			return "The difference in time between " + entities[0]['value'] + " and " + entities[1]['value'] + " is " + str(time) + ".\n"
 
 	def getTemperatureFormat(temps, entities):
 		entities = entities['wit$location:location']
@@ -42,7 +44,7 @@ class ResponseFormat(object):
 
 	def getWeatherFormat(weather, entities):
 		entities = entities['wit$location:location']
-		return "The weather in " + entities[0]['value'] + " is " + str(weather) + "."
+		return "The weather in " + entities[0]['value'] + " is " + str(weather) + ".\n"
 
 	def getPointOfInterestFormat(POI, entities):
 		entities = entities['wit$location:location']
@@ -51,5 +53,5 @@ class ResponseFormat(object):
 			stringsplitpoint = poi.find(', ') + 2
 			response += poi[stringsplitpoint:poi.find(',', stringsplitpoint+1)] + ", "
 		response = response[:-2]
-		response += "."
+		response += ".\n"
 		return response
