@@ -1,5 +1,3 @@
-import sys
-sys.path.append(sys.path[0]+"\\lib")
 import tkinter as tk
 from responsechatbot import ChatbotResponse as cr
 
