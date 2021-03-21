@@ -4,6 +4,7 @@ from location import Location as lc
 from responseformat import ResponseFormat as rf
 from timechatbot import TimeChatbot as tc
 from geoInfo import GeoInfo as gi
+from outofscoperesponse import OutOfScope as oos
 
 
 witIntents = {
@@ -48,7 +49,7 @@ class ChatbotResponse(object):
 				response += "Goodbye!\n"
 
 		if len(intents) == 0 and len(traits) == 0:
-			response = "I'm sorry, I didn't quite understand that.\nTry asking for help to see the scope of my functionality, or try asking another question.\n"
+			response = oos.getResponse()
 		else:
 			# for each intent, call their appropriate function, pass the data to the formatter, and append the string to the response
 			for intent in intents:

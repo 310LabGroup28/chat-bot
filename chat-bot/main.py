@@ -1,5 +1,6 @@
 import tkinter as tk
 from responsechatbot import ChatbotResponse as cr
+from outofscoperesponse import OutOfScope as oos
 
 
 def show_entry_fields():
@@ -12,7 +13,7 @@ def insertContent():
     try:
         reply = cr.getResponse(e1.get())
     except:
-        reply = "I'm sorry, I didn't quite understand that.\nTry asking for help to see the scope of my functionality, or try asking another question.\n"
+        reply = oos.getResponse()
 
     print(reply)
     T.insert(tk.END, e1.get() + '\n', "odd")
