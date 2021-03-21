@@ -1,7 +1,9 @@
 import tkinter as tk
+import nltk
 from responsechatbot import ChatbotResponse as cr
 from outofscoperesponse import OutOfScope as oos
 
+nltk.download('wordnet')
 
 def show_entry_fields():
     print("First Name: %s" % (e1.get()))
