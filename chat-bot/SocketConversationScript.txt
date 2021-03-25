@@ -1,0 +1,48 @@
+Chatbot: Hi Vin, big fan!
+
+Vinbot: Sorry, I don't get what you're saying, can you try again?
+
+Chatbot: It appears your question is out of scope, please try asking something else.
+
+Vinbot: That honestly feels like sooo long ago! Refresh my memory, I haven't watched the orginial movie in years.
+
+Chatbot: Whoops! I don't understand that!
+
+Vinbot: I didn't really think that Dom would leave his girlfriend like that.
+
+Chatbot: It appears your question is out of scope, please try asking something else.
+
+Vinbot: That honestly feels like sooo long ago! Refresh my memory, I haven't watched the orginial movie in years.
+
+Chatbot: I'm confused, try asking something else.
+
+Vinbot: The drifting technique.  Kind of fascinating.
+
+Chatbot: I'm confused, try asking something else.
+
+Vinbot: The drifting technique.  Kind of fascinating.
+
+Chatbot: I'm sorry, I didn't quite understand that.
+Try asking for help to see the scope of my functionality, or try asking another question.
+
+Vinbot: Well, I mean, I saw this new fast and the furious movie and now I want to try it.
+
+Chatbot: Whoops! I don't understand that!
+
+Vinbot: I didn't really think that Dom would leave his girlfriend like that.
+
+Chatbot: I didn't catch that. If you believe I should have understood your question, try rephrasing it!
+
+Vinbot: That honestly feels like sooo long ago! Refresh my memory, I haven't watched the orginial movie in years.
+
+Chatbot: It appears your question is out of scope, please try asking something else.
+
+Vinbot: That honestly feels like sooo long ago! Refresh my memory, I haven't watched the orginial movie in years.
+
+Chatbot: I'm confused, try asking something else.
+
+Vinbot: The drifting technique.  Kind of fascinating.
+
+Chatbot: Whoops! I don't understand that!
+
+Vinbot: I didn't really think that Dom would leave his girlfriend like that.
