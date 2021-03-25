@@ -9,14 +9,17 @@ def show_entry_fields():
 
 def insertContent():
     reply = ""
+    cor = ""
     #    
     try:
-        reply = cr.getResponse(e1.get())
+        cor = checkSpelling()
+        print(cor)
+        reply = cr.getResponse( cor )
     except:
         reply = "I'm sorry, I didn't quite understand that.\nTry asking for help to see the scope of my functionality, or try asking another question.\n"
 
     print(reply)
-    T.insert(tk.END, e1.get() + '\n', "odd")
+    T.insert(tk.END, cor + '\n', "odd")
     T.insert(tk.END, reply + '\n', "even")
     e1.delete(0, tk.END)
 
@@ -27,7 +30,7 @@ def checkSpelling():
     tips = 'here are some spelling mistakes:\n'
     for k in dic:
         tips = tips + str(k) + ' -> ' + str(dic[k]) + '\n'
-        sentence.replace(k, dic[k]);
+        sentence = sentence.replace(k, dic[k])
     if len(dic) == 0:
         tips = 'it seems all spelling are correct\n'    
     T.insert(tk.END, tips + '\n', "tip")
