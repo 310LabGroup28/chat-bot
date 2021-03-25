@@ -27,11 +27,12 @@ def checkSpelling():
     tips = 'here are some spelling mistakes:\n'
     for k in dic:
         tips = tips + str(k) + ' -> ' + str(dic[k]) + '\n'
+        sentence.replace(k, dic[k]);
     if len(dic) == 0:
         tips = 'it seems all spelling are correct\n'    
     T.insert(tk.END, tips + '\n', "tip")
     print(tips)
-    return
+    return sentence
 
 def posTagging():
     sentence = e1.get()
