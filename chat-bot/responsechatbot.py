@@ -38,7 +38,7 @@ class ChatbotResponse(object):
 		question = sr.replaceSynonyms(question)
 		jsonData = wa.sendRequest(question)
 
-		response = "Chatbot: "
+		response = ""
 
 		intents = jsonData['intents']
 		entities = jsonData['entities']
@@ -46,18 +46,18 @@ class ChatbotResponse(object):
 
 		for trait in traits:
 			if trait == 'wit$greetings':
-				response = response + "Hello! I can help with things related to geographic data.\nTry asking me how far two places are from each other, or ask me about the weather somewhere.\nIf you want to know more about what I can do, try asking for help.\n"
+				response += "Hello! I can help with things related to geographic data.\nTry asking me how far two places are from each other, or ask me about the weather somewhere.\nIf you want to know more about what I can do, try asking for help.\n"
 			if trait == 'help':
-				response = response + "I have a few things I can help you with.\nI can get the temperature at multiple locations, the weather forecast, and points of interest nearby.\nI can also tell you what the local time is for any location, and help calculate time differences between locations.\nLastly, I can measure distances between two locations in kilometers.\n"
+				response += "I have a few things I can help you with.\nI can get the temperature at multiple locations, the weather forecast, and points of interest nearby.\nI can also tell you what the local time is for any location, and help calculate time differences between locations.\nLastly, I can measure distances between two locations in kilometers.\n"
 			if trait == 'wit$bye':
-				response = response + "Goodbye!\n"
+				response += "Goodbye!\n"
 
 		if len(intents) == 0 and len(traits) == 0:
-			response = response + oos.getResponse()
+			response += oos.getResponse()
 		else:
 			# for each intent, call their appropriate function, pass the data to the formatter, and append the string to the response
 			for intent in intents:
 				intentName = intent['name']
-				response = response + witIntentResponseFormats[intentName](witIntents[intentName](entities), entities)
+				response += witIntentResponseFormats[intentName](witIntents[intentName](entities), entities)
 
 		return response

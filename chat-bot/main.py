@@ -25,7 +25,7 @@ def insertContent():
 
     print(reply)
     T.insert(tk.END, "User: " + question + '\n', "odd")
-    T.insert(tk.END, reply + '\n', "even")
+    T.insert(tk.END, "Chatbot: " + reply + '\n', "even")
     e1.delete(0, tk.END)
 
 
