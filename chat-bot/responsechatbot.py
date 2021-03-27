@@ -6,7 +6,7 @@ from timechatbot import TimeChatbot as tc
 from geoInfo import GeoInfo as gi
 from outofscoperesponse import OutOfScope as oos
 from synonym import SynonymReplacer as sr
-from posTag_spellCheck import check_spelling_update
+from posTag_spellCheck import SpellCheckPosTag as scpt
 
 
 witIntents = {
@@ -34,7 +34,7 @@ class ChatbotResponse(object):
 	# getResponse allows you to send in a question or statement as a string, and returns a string that is the response
 	# it does this by calling the appropriate function for the intent, using the dictionaries above
 	def getResponse(question):
-		question = check_spelling_update(question)
+		question = scpt.check_spelling_update(question)
 		question = sr.replaceSynonyms(question)
 		jsonData = wa.sendRequest(question)
 

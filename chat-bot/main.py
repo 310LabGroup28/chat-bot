@@ -2,7 +2,7 @@ import tkinter as tk
 from nltk.corpus import wordnet
 import nltk
 from responsechatbot import ChatbotResponse as cr
-from posTag_spellCheck import check, pos_tagging
+from posTag_spellCheck import SpellCheckPosTag as scpt
 from outofscoperesponse import OutOfScope as oos
 
 
@@ -35,7 +35,7 @@ def insertContent():
 def checkSpelling():
     sentence = e1.get()
     #print(pos_tagging(sentence))
-    dic = check(sentence)
+    dic = scpt.check(sentence)
     tips = 'here are some spelling mistakes:\n'
     for k in dic:
         tips = tips + str(k) + ' -> ' + str(dic[k]) + '\n'
@@ -48,7 +48,7 @@ def checkSpelling():
 
 def posTagging():
     sentence = e1.get()
-    dic = pos_tagging(sentence)
+    dic = scpt.pos_tagging(sentence)
     tips = 'I found the following POS tags:\n'
     for k in dic:
         tips = tips + str(k) + ' -> ' + str(dic[k]) + '\n'
