@@ -17,12 +17,8 @@ def show_entry_fields():
 
 def insertContent():
     reply = ""
-    question = e1.get()
-    #cor = ""
-    #    
+    question = e1.get()   
     try:
-        #cor = checkSpelling()
-        #print(cor)
         reply = cr.getResponse(question)
     except:
         reply = oos.getResponse()
@@ -32,19 +28,6 @@ def insertContent():
     T.insert(tk.END, reply + '\n', "even")
     e1.delete(0, tk.END)
 
-def checkSpelling():
-    sentence = e1.get()
-    #print(pos_tagging(sentence))
-    dic = scpt.check(sentence)
-    tips = 'here are some spelling mistakes:\n'
-    for k in dic:
-        tips = tips + str(k) + ' -> ' + str(dic[k]) + '\n'
-        sentence = sentence.replace(k, dic[k])
-    if len(dic) == 0:
-        tips = 'it seems all spelling are correct\n'    
-    T.insert(tk.END, tips + '\n', "tip")
-    print(tips)
-    return sentence
 
 def posTagging():
     sentence = e1.get()
@@ -69,9 +52,6 @@ e1.grid(row=1, column=0, padx=5, pady=5)
 
 send = tk.Button(master, text='Send', command=insertContent)
 send.grid(row=3, column=0, sticky=tk.W, pady=5)
-
-#checkSpell = tk.Button(master, text='check spelling', command=checkSpelling)
-#checkSpell.grid(row=4, column=0, sticky=tk.W, pady=5)
 
 posTag = tk.Button(master, text='POS tagging', command=posTagging)
 posTag.grid(row=5, column=0, sticky=tk.W, pady=5)
