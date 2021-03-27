@@ -6,9 +6,7 @@ from nltk import word_tokenize
 from nltk import StanfordTagger
 
 # download those files to help POS-tagging
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('tagsets')
+
 
 import re
 # remove punctuations from unicode string except apostrophe
@@ -80,6 +78,7 @@ def check_spelling(sentence):
   return dic
  
 def check_spelling_update(sentence):
+  newSentence = sentence
   words = word_token(sentence)
   dic = {}
   for w in words:
@@ -87,8 +86,8 @@ def check_spelling_update(sentence):
     nw = cor.correct()
     nw = str(nw)    
     if nw!=w:
-      dic[w] = nw
-  return dic
+      newSentence = newSentence.replace(w, nw)
+  return newSentence
 
 def check(sentence):
   d1 = check_spelling(sentence)

@@ -6,6 +6,7 @@ from timechatbot import TimeChatbot as tc
 from geoInfo import GeoInfo as gi
 from outofscoperesponse import OutOfScope as oos
 from synonym import SynonymReplacer as sr
+from posTag_spellCheck import check_spelling_update
 
 
 witIntents = {
@@ -33,7 +34,7 @@ class ChatbotResponse(object):
 	# getResponse allows you to send in a question or statement as a string, and returns a string that is the response
 	# it does this by calling the appropriate function for the intent, using the dictionaries above
 	def getResponse(question):
-		#question = sc.spellCheck(question)
+		question = check_spelling_update(question)
 		question = sr.replaceSynonyms(question)
 		jsonData = wa.sendRequest(question)
 
@@ -45,18 +46,18 @@ class ChatbotResponse(object):
 
 		for trait in traits:
 			if trait == 'wit$greetings':
-				response += "Hello! I can help with things related to geographic data.\nTry asking me how far two places are from each other, or ask me about the weather somewhere.\nIf you want to know more about what I can do, try asking for help.\n"
+				response = response + "Hello! I can help with things related to geographic data.\nTry asking me how far two places are from each other, or ask me about the weather somewhere.\nIf you want to know more about what I can do, try asking for help.\n"
 			if trait == 'help':
-				response += "I have a few things I can help you with.\nI can get the temperature at multiple locations, the weather forecast, and points of interest nearby.\nI can also tell you what the local time is for any location, and help calculate time differences between locations.\nLastly, I can measure distances between two locations in kilometers.\n"
+				response = response + "I have a few things I can help you with.\nI can get the temperature at multiple locations, the weather forecast, and points of interest nearby.\nI can also tell you what the local time is for any location, and help calculate time differences between locations.\nLastly, I can measure distances between two locations in kilometers.\n"
 			if trait == 'wit$bye':
-				response += "Goodbye!\n"
+				response = response + "Goodbye!\n"
 
 		if len(intents) == 0 and len(traits) == 0:
-			response = oos.getResponse()
+			response = response + oos.getResponse()
 		else:
 			# for each intent, call their appropriate function, pass the data to the formatter, and append the string to the response
 			for intent in intents:
 				intentName = intent['name']
-				response += witIntentResponseFormats[intentName](witIntents[intentName](entities), entities)
+				response = response + witIntentResponseFormats[intentName](witIntents[intentName](entities), entities)
 
 		return response
