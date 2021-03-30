@@ -26,3 +26,4 @@ timezonefinder==5.2.0
 tk==0.1.0
 tqdm==4.59.0
 urllib3==1.25.10
+HTMLReport==2.2.2
